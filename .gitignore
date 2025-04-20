@@ -1,0 +1,9 @@
+*.o
+*.a
+*.so
+philo/philo
+
+*.swp
+*.log
+
+build
