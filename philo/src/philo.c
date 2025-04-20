@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/20 19:54:49 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/21 01:26:35 by aadyan           ###   ########.fr       */
+/*   Created: 2025/04/20 21:17:04 by aadyan            #+#    #+#             */
+/*   Updated: 2025/04/21 01:26:29 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "philo.h"
+#include "stdio.h"
 
-# include <stdio.h>
-# include <pthread.h>
-# include <limits.h>
-# include <stdlib.h>
-
-long int	ft_atol(char *num);
-void		validation(int argc, char **argv);
-
-#endif
+int	main(int argc, char **argv)
+{
+	validation(argc, argv);
+	return (0);
+}

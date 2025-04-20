@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/20 21:17:04 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/20 23:26:29 by aadyan           ###   ########.fr       */
+/*   Created: 2025/04/21 00:30:30 by aadyan            #+#    #+#             */
+/*   Updated: 2025/04/21 01:24:59 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include "stdio.h"
 
-int main()
+long int	ft_atol(char *num)
 {
-	printf("%d", TEST);
-	return 0;
+	long int	res;
+	int			sign;
+	int			i;
+
+	sign = 1;
+	res = 0;
+	i = 0;
+	if (num[i] == '-' || num[i] == '+')
+		if (num[i++] == '-')
+			sign = -1;
+	while (num[i] == '0')
+		i++;
+	while (num[i])
+		res = (res + num[i++] - '0') * 10;
+	return (sign * res / 10);
 }
