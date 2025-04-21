@@ -7,3 +7,5 @@ philo/philo
 *.log
 
 build
+
+.vscode
