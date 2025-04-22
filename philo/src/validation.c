@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 00:19:18 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/21 01:26:12 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/04/21 20:58:53 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,19 @@ static int	check_symbols(int ac, char **av)
 	return (1);
 }
 
-void	validation(int argc, char **argv)
+int	validation(int argc, char **argv)
 {
 	int	i;
 
 	if (argc < 5 || argc > 6)
 	{
 		printf("Error: Incorrect number of arguments\n");
-		exit (22);
+		return (0);
 	}
 	if (!check_symbols(argc, argv))
 	{
 		printf("Error: Invalid symbols detected\n");
-		exit (22);
+		return (0);
 	}
 	i = 1;
 	while (argv[i])
@@ -78,8 +78,9 @@ void	validation(int argc, char **argv)
 		if (!num_range(argv[i]))
 		{
 			printf("Error: Argument out of range (1 - %d)\n", INT_MAX);
-			exit (22);
+			return (0);
 		}
 		++i;
 	}
+	return (1);
 }
