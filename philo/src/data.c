@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 13:11:47 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/23 02:18:00 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/04/23 18:24:46 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static void	init_mutex(t_table *table)
 		pthread_mutex_init(&table->forks[index++], NULL);
 	pthread_mutex_init(&table->eat_mutex, NULL);
 	pthread_mutex_init(&table->print_mutex, NULL);
+	pthread_mutex_init(&table->stop_mutex, NULL);
 }
 
 t_table	*init_table(int argc, char **argv)
@@ -37,8 +38,9 @@ t_table	*init_table(int argc, char **argv)
 	if (argc == 6)
 		table->must_eat_count = ft_atol(argv[5]);
 	else
-		table->must_eat_count = -1;
-	table->someone_dead = 0;
+		table->must_eat_count = 0;
+	table->fullness_count = 0;
+	table->stop_program = 0;
 	table->philos = (t_philo *)malloc(sizeof(t_philo) * table->num_of_philos);
 	if (!table->philos)
 		return (free(table), NULL);
@@ -60,10 +62,12 @@ void	init_philo(t_table *table)
 	{
 		table->philos[index].index = index + 1;
 		table->philos[index].eat_count = 0;
-		table->philos[index].last_eat_time = 0;
+		table->philos[index].last_eat_time = table->start_time;
 		table->philos[index].left = &table->forks[index];
 		table->philos[index].right = &table->forks[(index + 1) % \
 									table->num_of_philos];
+		table->philos[index].table = table;
+		pthread_mutex_init(&table->philos[index].last_eat_time_mutex, NULL);
 		++index;
 	}
 }

@@ -28,6 +28,7 @@ all: build $(NAME)
 
 clean:
 	rm -rf $(OBJ)
+	rm -rf $(BUILD_DIR)
 
 fclean: clean
 	rm -rf $(NAME)
