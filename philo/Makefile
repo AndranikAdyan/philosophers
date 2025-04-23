@@ -18,13 +18,13 @@ CC			= cc
 
 FLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=thread
 
+all: build $(NAME)
+
 $(BUILD_DIR)/%.o:	$(SRC_DIR)/%.c Makefile $(HEADER)
 	$(CC) $(FLAGS) -I$(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJ)
 	$(CC) $(FLAGS) -I$(INCLUDES) $(OBJ) -o $(NAME)
-
-all: build $(NAME)
 
 clean:
 	rm -rf $(OBJ)
@@ -37,3 +37,5 @@ re: fclean all
 
 build:
 	@mkdir -p $(BUILD_DIR)
+
+.PHONY: all clean fclean re build
