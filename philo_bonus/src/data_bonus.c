@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 21:26:27 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/26 19:15:41 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/04/26 19:34:51 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void	init_philo(t_table *table)
 		table->philo[index].last_eat_time = 0;
 		sem_name = ft_itoa(index);
 		sem_unlink(sem_name);
-		table->philo[index].last_eat_sem = sem_open(sem_name, O_CREAT | O_EXCL, 0644, 1);
+		table->philo[index].last_eat_sem
+			= sem_open(sem_name, O_CREAT | O_EXCL, 0644, 1);
 		free(sem_name);
 		++index;
 	}
@@ -52,8 +53,10 @@ t_table	*init_table(int argc, char **argv)
 	sem_unlink("/forks");
 	sem_unlink("/print");
 	sem_unlink("/secure_forks");
-	table->forks = sem_open("/forks", O_CREAT | O_EXCL, 0644, table->num_of_philos);
-	table->secure_forks = sem_open("/secure_forks", O_CREAT | O_EXCL, 0644, table->num_of_philos / 2);
+	table->forks = sem_open("/forks", O_CREAT | O_EXCL, \
+		0644, table->num_of_philos);
+	table->secure_forks = sem_open("/secure_forks", O_CREAT | O_EXCL, \
+		0644, table->num_of_philos / 2);
 	table->print = sem_open("/print", O_CREAT | O_EXCL, 0644, 1);
 	table->start_time = get_time_in_ms();
 	return (table);
