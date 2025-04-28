@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 14:06:08 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/23 18:12:45 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/04/29 00:40:09 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	philo_pick_fork(t_philo *philo)
 void	philo_eat(t_philo *philo)
 {
 	print_state(philo, "is eating");
-	check_usleep(philo, philo->table->time_to_eat);
+	check_usleep(philo, philo->table->time_to_eat * 1000);
 	if (philo->table->num_of_philos == 1)
 		return ;
 	pthread_mutex_unlock(philo->left);
@@ -72,7 +72,7 @@ void	philo_eat(t_philo *philo)
 void	philo_sleep(t_philo *philo)
 {
 	print_state(philo, "is sleeping");
-	check_usleep(philo, philo->table->time_to_sleep);
+	check_usleep(philo, philo->table->time_to_sleep * 1000);
 }
 
 void	philo_think(t_philo *philo)
