@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:41:05 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/28 21:34:26 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/04/28 21:38:36 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ void	*check_death(void *data)
 		{
 			sem_wait(philo->table->print);
 			sem_post(philo->last_eat_sem);
-			printf("[%lld] %d is died\n", get_time_in_ms() - philo->table->start_time, \
+			printf("[%lld] %d is died\n", get_time_in_ms() - \
+			philo->table->start_time, \
 				philo->index);
 			sem_post(philo->table->death);
 		}

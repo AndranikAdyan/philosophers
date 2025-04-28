@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 00:19:18 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/21 20:58:53 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/04/28 21:44:02 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,18 @@ int	validation(int argc, char **argv)
 	int	i;
 
 	if (argc < 5 || argc > 6)
-	{
-		printf("Error: Incorrect number of arguments\n");
-		return (0);
-	}
+		return (printf("Error: Incorrect number of arguments\n"), 0);
 	if (!check_symbols(argc, argv))
 	{
 		printf("Error: Invalid symbols detected\n");
 		return (0);
 	}
 	i = 1;
+	if (ft_atol(argv[1]) <= 0 || ft_atol(argv[1]) > 1000)
+	{
+		printf("Error: Philo's count out of range (1 - 1000)\n");
+		return (0);
+	}
 	while (argv[i])
 	{
 		if (!num_range(argv[i]))
