@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   monitoring.c                                       :+:      :+:    :+:   */
+/*   threads_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/25 20:00:13 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/26 19:33:32 by aadyan           ###   ########.fr       */
+/*   Created: 2025/04/27 19:56:16 by aadyan            #+#    #+#             */
+/*   Updated: 2025/04/28 01:35:13 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	check_fullness(t_philo *philo)
+void	create_threads(t_table *table)
 {
-	if (philo->table->must_eat_count != 0
-		&& philo->eat_count == philo->table->must_eat_count)
-	{
-		printf("[%lld] %d %s\n", get_time_in_ms() - \
-				philo->table->start_time, philo->index, "is fullness");
-		free_table(philo->table);
-		exit(0);
-	}
+	if (table->must_eat_count)
+		if (pthread_create(&table->fullness_thread, NULL, fullness_check, table) != 0)
+			return ;
+	if (pthread_create(&table->death_thread, NULL, death, table) != 0)
+		return ;
 }

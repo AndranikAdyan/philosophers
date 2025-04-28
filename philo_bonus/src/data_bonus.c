@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 21:26:27 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/26 19:34:51 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/04/28 21:29:36 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	init_philo(t_table *table)
 		table->philo[index].index = index + 1;
 		table->philo[index].eat_count = 0;
 		table->philo[index].table = table;
-		table->philo[index].last_eat_time = 0;
+		table->philo[index].last_eat_time = table->start_time;
 		sem_name = ft_itoa(index);
 		sem_unlink(sem_name);
 		table->philo[index].last_eat_sem
@@ -31,6 +31,22 @@ static void	init_philo(t_table *table)
 		free(sem_name);
 		++index;
 	}
+}
+
+static void	init_sems(t_table *table)
+{
+	sem_unlink("/forks");
+	sem_unlink("/print");
+	sem_unlink("/secure_forks");
+	sem_unlink("/fullness");
+	sem_unlink("/death");
+	table->forks = sem_open("/forks", O_CREAT | O_EXCL, \
+		0644, table->num_of_philos);
+	table->secure_forks = sem_open("/secure_forks", O_CREAT | O_EXCL, \
+		0644, table->num_of_philos / 2);
+	table->print = sem_open("/print", O_CREAT | O_EXCL, 0644, 1);
+	table->fullness = sem_open("/fullness", O_CREAT | O_EXCL, 0644, 0);
+	table->death = sem_open("/death", O_CREAT | O_EXCL, 0644, 0);
 }
 
 t_table	*init_table(int argc, char **argv)
@@ -49,16 +65,9 @@ t_table	*init_table(int argc, char **argv)
 	else
 		table->must_eat_count = 0;
 	table->philo = malloc(sizeof(t_philo) * table->num_of_philos);
-	init_philo(table);
-	sem_unlink("/forks");
-	sem_unlink("/print");
-	sem_unlink("/secure_forks");
-	table->forks = sem_open("/forks", O_CREAT | O_EXCL, \
-		0644, table->num_of_philos);
-	table->secure_forks = sem_open("/secure_forks", O_CREAT | O_EXCL, \
-		0644, table->num_of_philos / 2);
-	table->print = sem_open("/print", O_CREAT | O_EXCL, 0644, 1);
+	init_sems(table);
 	table->start_time = get_time_in_ms();
+	init_philo(table);
 	return (table);
 }
 

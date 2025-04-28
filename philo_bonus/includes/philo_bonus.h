@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:12:42 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/26 19:12:03 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/04/27 23:53:47 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <sys/time.h>
 # include <pthread.h>
+# include <signal.h>
 
 typedef struct s_philo	t_philo;
 
@@ -36,6 +37,10 @@ typedef struct s_table
 	sem_t		*secure_forks;
 	sem_t		*forks;
 	sem_t		*print;
+	sem_t		*fullness;
+	sem_t		*death;
+	pthread_t	fullness_thread;
+	pthread_t	death_thread;
 	t_philo		*philo;
 }	t_table;
 
@@ -44,6 +49,8 @@ typedef struct s_philo
 	int			index;
 	int			eat_count;
 	long long	last_eat_time;
+	pthread_t	philo_death_thread;
+	pid_t		pid;
 	sem_t		*last_eat_sem;
 	t_table		*table;
 }	t_philo;
@@ -67,5 +74,10 @@ void		philo_think(t_philo *philo);
 void		check_fullness(t_philo *philo);
 
 void		create_philos(t_table *table);
+
+void		*fullness_check(void *data);
+void		*check_death(void *data);
+void		*death(void *data);
+void		create_threads(t_table *table);
 
 #endif

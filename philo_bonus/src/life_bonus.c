@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:31:55 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/26 19:33:21 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/04/28 21:32:51 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	life(t_philo *philo)
 {
+	pthread_create(&philo->philo_death_thread, NULL, check_death, philo);
 	while (1)
 	{
 		philo_pick_fork(philo);
 		philo_eat(philo);
-		check_fullness(philo);
 		philo_sleep(philo);
 		philo_think(philo);
 	}
