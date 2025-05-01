@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:30:37 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/23 18:28:42 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/05/01 21:35:28 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	someone_dead(t_table *table, int index)
 		pthread_mutex_lock(&table->stop_mutex);
 		table->stop_program = 1;
 		pthread_mutex_lock(&table->print_mutex);
-		printf("[%lld] %d id dead", get_time_in_ms() - \
+		printf("[%lld] %d is dead", get_time_in_ms() - \
 			table->start_time, index + 1);
 		pthread_mutex_unlock(&table->print_mutex);
 		pthread_mutex_unlock(&table->stop_mutex);
@@ -42,7 +42,7 @@ void	*death(void *data)
 	while (1)
 	{
 		index = 0;
-		usleep(100);
+		usleep(1000);
 		while (index < table->num_of_philos)
 		{
 			if (someone_dead(table, index))

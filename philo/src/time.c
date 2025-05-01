@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 21:05:08 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/23 17:44:17 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/05/01 21:29:40 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ long long	get_time_in_ms(void)
 
 void	check_usleep(t_philo *philo, int time)
 {
-	int	i;
+	long long	start_time;
 
-	i = 0;
-	while (i <= time)
+	start_time = get_time_in_ms();
+	while (get_time_in_ms() - start_time < time)
 	{
 		pthread_mutex_lock(&philo->table->stop_mutex);
 		if (philo->table->stop_program)
@@ -36,6 +36,5 @@ void	check_usleep(t_philo *philo, int time)
 		else
 			pthread_mutex_unlock(&philo->table->stop_mutex);
 		usleep(100);
-		i += 10;
 	}
 }

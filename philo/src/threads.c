@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 01:24:16 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/23 18:25:37 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/05/01 20:19:10 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	create_threads(t_table *table)
 {
-	int			index;
+	int	index;
 
 	index = 0;
 	while (index < table->num_of_philos)
@@ -38,7 +38,7 @@ void	join_threads(t_table *table)
 		pthread_join(table->philos[index].thread, NULL);
 		++index;
 	}
+	pthread_join(table->death_thread, NULL);
 	if (table->must_eat_count)
 		pthread_join(table->fullnes_thread, NULL);
-	pthread_join(table->death_thread, NULL);
 }
