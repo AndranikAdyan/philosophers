@@ -31,24 +31,23 @@ void	philo_pick_fork(t_philo *philo)
 {
 	if (philo->index % 2 == 0)
 	{
-		usleep(1000);
-		pthread_mutex_lock(philo->right);
-		print_state(philo, "has taken a right fork");
 		pthread_mutex_lock(philo->left);
 		print_state(philo, "has taken a left fork");
+		pthread_mutex_lock(philo->right);
+		print_state(philo, "has taken a right fork");
 	}
 	else
 	{
-		pthread_mutex_lock(philo->left);
-		print_state(philo, "has taken a left fork");
+		pthread_mutex_lock(philo->right);
+		print_state(philo, "has taken a right fork");
 		if (philo->table->num_of_philos == 1)
 		{
-			pthread_mutex_unlock(philo->left);
+			pthread_mutex_unlock(philo->right);
 			usleep((philo->table->time_to_die + 2) * 1000);
 			return ;
 		}
-		pthread_mutex_lock(philo->right);
-		print_state(philo, "has taken a right fork");
+		pthread_mutex_lock(philo->left);
+		print_state(philo, "has taken a left fork");
 	}
 }
 
