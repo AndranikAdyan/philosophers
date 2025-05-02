@@ -71,7 +71,6 @@ void		philo_pick_fork(t_philo *philo);
 void		philo_eat(t_philo *philo);
 void		philo_sleep(t_philo *philo);
 void		philo_think(t_philo *philo);
-void		check_fullness(t_philo *philo);
 
 void		create_philos(t_table *table);
 

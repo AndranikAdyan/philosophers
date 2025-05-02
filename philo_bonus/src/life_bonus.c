@@ -22,4 +22,5 @@ void	life(t_philo *philo)
 		philo_sleep(philo);
 		philo_think(philo);
 	}
+	pthread_join(philo->philo_death_thread, NULL);
 }

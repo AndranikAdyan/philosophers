@@ -38,23 +38,31 @@ void	philo_pick_fork(t_philo *philo)
 
 void	philo_eat(t_philo *philo)
 {
+	long long	start_time;
+
+	start_time = get_time_in_ms();
 	print_state(philo, "is eating");
-	usleep(philo->table->time_to_eat * 1000);
-	if (philo->table->must_eat_count
-		&& ++philo->eat_count == philo->table->must_eat_count)
-		sem_post(philo->table->fullness);
-	sem_post(philo->table->forks);
-	sem_post(philo->table->forks);
-	sem_post(philo->table->secure_forks);
+	while (get_time_in_ms() - start_time < philo->table->time_to_eat)
+		usleep(100);
 	sem_wait(philo->last_eat_sem);
 	philo->last_eat_time = get_time_in_ms();
 	sem_post(philo->last_eat_sem);
+	sem_post(philo->table->forks);
+	sem_post(philo->table->forks);
+	sem_post(philo->table->secure_forks);
+	if (philo->table->must_eat_count
+		&& ++philo->eat_count == philo->table->must_eat_count)
+		sem_post(philo->table->fullness);
 }
 
 void	philo_sleep(t_philo *philo)
 {
+	long long	start_time;
+
+	start_time = get_time_in_ms();
 	print_state(philo, "is sleeping");
-	usleep(philo->table->time_to_sleep * 1000);
+	while (get_time_in_ms() - start_time < philo->table->time_to_sleep)
+		usleep(100);
 }
 
 void	philo_think(t_philo *philo)

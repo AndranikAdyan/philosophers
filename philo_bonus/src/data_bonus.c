@@ -35,6 +35,8 @@ static void	init_philo(t_table *table)
 
 static void	init_sems(t_table *table)
 {
+	int	secure_forks;
+
 	sem_unlink("/forks");
 	sem_unlink("/print");
 	sem_unlink("/secure_forks");
@@ -42,8 +44,12 @@ static void	init_sems(t_table *table)
 	sem_unlink("/death");
 	table->forks = sem_open("/forks", O_CREAT | O_EXCL,
 			0644, table->num_of_philos);
+	if (table->num_of_philos == 1)
+		secure_forks = 1;
+	else
+		secure_forks = table->num_of_philos / 2;
 	table->secure_forks = sem_open("/secure_forks", O_CREAT | O_EXCL,
-			0644, (table->num_of_philos / 2) + 1);
+			0644, secure_forks);
 	table->print = sem_open("/print", O_CREAT | O_EXCL, 0644, 1);
 	table->fullness = sem_open("/fullness", O_CREAT | O_EXCL, 0644, 0);
 	table->death = sem_open("/death", O_CREAT | O_EXCL, 0644, 0);

@@ -58,7 +58,6 @@ void	*check_death(void *data)
 
 	while (1)
 	{
-		usleep(1000);
 		philo = (t_philo *)data;
 		sem_wait(philo->last_eat_sem);
 		if (get_time_in_ms() - philo->last_eat_time
