@@ -18,20 +18,31 @@ CC			= cc
 
 FLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=thread
 
+GREEN		= \033[38;2;124;227;139m
+YELLOW		= \033[38;2;250;163;86m
+RED			= \033[38;2;255;99;99m
+BLUE		= \033[38;2;100;149;237m
+RESET		= \033[0m
+
 all: build $(NAME)
 
-$(BUILD_DIR)/%.o:	$(SRC_DIR)/%.c Makefile $(HEADER)
-	$(CC) $(FLAGS) -I$(INCLUDES) -c $< -o $@
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c Makefile $(HEADER)
+	@mkdir -p ./build
+	@echo "🔧 $(BLUE)Compiling: $(YELLOW)$<$(RESET)"
+	@$(CC) $(FLAGS) -I$(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) -I$(INCLUDES) $(OBJ) -o $(NAME)
+	@$(CC) $(FLAGS) -I$(INCLUDES) $(OBJ) -o $(NAME)
+	@echo "✅ $(GREEN)Build complete: $(NAME)$(RESET)"
 
 clean:
-	rm -rf $(OBJ)
-	rm -rf $(BUILD_DIR)
+	@echo "🧹 $(RED)Cleaning object files...$(RESET)"
+	@rm -rf $(OBJ)
+	@rm -rf $(BUILD_DIR)
 
 fclean: clean
-	rm -rf $(NAME)
+	@echo "🗑️  $(RED)Removing binary: $(NAME)$(RESET)"
+	@rm -rf $(NAME)
 
 re: fclean all
 
