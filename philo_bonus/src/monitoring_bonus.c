@@ -44,8 +44,8 @@ void	*fullness_check(void *data)
 		{
 			sem_wait(table->print);
 			sem_post(table->death);
-			printf("[%lld] Dinner is over!\n", get_time_in_ms() - \
-				table->start_time);
+			printf("[%lld] Dinner is over!\n", get_time_in_ms()
+				- table->start_time);
 			return (NULL);
 		}
 	}
@@ -61,14 +61,13 @@ void	*check_death(void *data)
 		usleep(1000);
 		philo = (t_philo *)data;
 		sem_wait(philo->last_eat_sem);
-		if (get_time_in_ms() - philo->last_eat_time > \
-			philo->table->time_to_die)
+		if (get_time_in_ms() - philo->last_eat_time
+			> philo->table->time_to_die)
 		{
 			sem_wait(philo->table->print);
 			sem_post(philo->last_eat_sem);
-			printf("[%lld] %d is died\n", get_time_in_ms() - \
-			philo->table->start_time, \
-				philo->index);
+			printf("[%lld] %d is died\n", get_time_in_ms()
+				- philo->table->start_time, philo->index);
 			sem_post(philo->table->death);
 		}
 		else

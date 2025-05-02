@@ -19,8 +19,8 @@ void	create_threads(t_table *table)
 	index = 0;
 	while (index < table->num_of_philos)
 	{
-		pthread_create(&table->philos[index].thread, NULL, \
-					life, &table->philos[index]);
+		pthread_create(&table->philos[index].thread, NULL,
+			life, &table->philos[index]);
 		++index;
 	}
 	pthread_create(&table->death_thread, NULL, death, table);

@@ -44,8 +44,8 @@ t_table	*init_table(int argc, char **argv)
 	table->philos = (t_philo *)malloc(sizeof(t_philo) * table->num_of_philos);
 	if (!table->philos)
 		return (free(table), NULL);
-	table->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * \
-					table->num_of_philos);
+	table->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
+			* table->num_of_philos);
 	if (!table->forks)
 		return (free(table->philos), free(table), NULL);
 	init_mutex(table);
@@ -64,8 +64,8 @@ void	init_philo(t_table *table)
 		table->philos[index].eat_count = 0;
 		table->philos[index].last_eat_time = table->start_time;
 		table->philos[index].left = &table->forks[index];
-		table->philos[index].right = &table->forks[(index + 1) % \
-									table->num_of_philos];
+		table->philos[index].right = &table->forks[(index + 1)
+			% table->num_of_philos];
 		table->philos[index].table = table;
 		pthread_mutex_init(&table->philos[index].last_eat_time_mutex, NULL);
 		++index;

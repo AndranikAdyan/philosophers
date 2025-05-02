@@ -16,7 +16,7 @@ OBJ			= $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC))
 
 CC			= cc
 
-FLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=thread
+FLAGS		= -Wall -Wextra -Werror -g3# -fsanitize=thread
 
 all: build $(NAME)
 

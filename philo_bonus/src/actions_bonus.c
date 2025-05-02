@@ -15,8 +15,8 @@
 static void	print_state(t_philo	*philo, char *str)
 {
 	sem_wait(philo->table->print);
-	printf("[%lld] %d %s\n", get_time_in_ms() - \
-				philo->table->start_time, philo->index, str);
+	printf("[%lld] %d %s\n", get_time_in_ms()
+		- philo->table->start_time, philo->index, str);
 	sem_post(philo->table->print);
 }
 
@@ -33,15 +33,15 @@ void	philo_eat(t_philo *philo)
 {
 	print_state(philo, "is eating");
 	usleep(philo->table->time_to_eat * 1000);
+	if (philo->table->must_eat_count
+		&& ++philo->eat_count == philo->table->must_eat_count)
+		sem_post(philo->table->fullness);
 	sem_post(philo->table->forks);
 	sem_post(philo->table->forks);
 	sem_post(philo->table->secure_forks);
 	sem_wait(philo->last_eat_sem);
 	philo->last_eat_time = get_time_in_ms();
 	sem_post(philo->last_eat_sem);
-	if (philo->table->must_eat_count
-		&& ++philo->eat_count == philo->table->must_eat_count)
-		sem_post(philo->table->fullness);
 }
 
 void	philo_sleep(t_philo *philo)

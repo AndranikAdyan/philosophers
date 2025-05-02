@@ -15,15 +15,15 @@
 static int	someone_dead(t_table *table, int index)
 {
 	pthread_mutex_lock(&table->philos[index].last_eat_time_mutex);
-	if (get_time_in_ms() - table->philos[index].last_eat_time > \
-		table->time_to_die)
+	if (get_time_in_ms() - table->philos[index].last_eat_time
+		> table->time_to_die)
 	{
 		pthread_mutex_unlock(&table->philos[index].last_eat_time_mutex);
 		pthread_mutex_lock(&table->stop_mutex);
 		table->stop_program = 1;
 		pthread_mutex_lock(&table->print_mutex);
-		printf("[%lld] %d is dead", get_time_in_ms() - \
-			table->start_time, index + 1);
+		printf("[%lld] %d is dead", get_time_in_ms()
+			- table->start_time, index + 1);
 		pthread_mutex_unlock(&table->print_mutex);
 		pthread_mutex_unlock(&table->stop_mutex);
 		return (1);

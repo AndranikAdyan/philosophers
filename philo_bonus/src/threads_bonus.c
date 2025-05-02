@@ -15,8 +15,8 @@
 void	create_threads(t_table *table)
 {
 	if (table->must_eat_count)
-		if (pthread_create(&table->fullness_thread, NULL, \
-			fullness_check, table) != 0)
+		if (pthread_create(&table->fullness_thread, NULL,
+				fullness_check, table) != 0)
 			return ;
 	if (pthread_create(&table->death_thread, NULL, death, table) != 0)
 		return ;

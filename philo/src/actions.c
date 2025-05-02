@@ -19,8 +19,8 @@ static void	print_state(t_philo	*philo, char *str)
 	{
 		pthread_mutex_unlock(&philo->table->stop_mutex);
 		pthread_mutex_lock(&philo->table->print_mutex);
-		printf("[%lld] %d %s\n", get_time_in_ms() - \
-				philo->table->start_time, philo->index, str);
+		printf("[%lld] %d %s\n", get_time_in_ms()
+			- philo->table->start_time, philo->index, str);
 		pthread_mutex_unlock(&philo->table->print_mutex);
 	}
 	else
@@ -44,7 +44,7 @@ void	philo_pick_fork(t_philo *philo)
 		if (philo->table->num_of_philos == 1)
 		{
 			pthread_mutex_unlock(philo->left);
-			usleep((philo->table->time_to_die + 1) * 1000);
+			usleep((philo->table->time_to_die + 2) * 1000);
 			return ;
 		}
 		pthread_mutex_lock(philo->right);
@@ -62,8 +62,8 @@ void	philo_eat(t_philo *philo)
 	philo->last_eat_time = get_time_in_ms();
 	pthread_mutex_unlock(&philo->last_eat_time_mutex);
 	pthread_mutex_lock(&philo->table->eat_mutex);
-	if (philo->table->must_eat_count && ++philo->eat_count == \
-			philo->table->must_eat_count)
+	if (philo->table->must_eat_count && ++philo->eat_count
+		== philo->table->must_eat_count)
 		philo->table->fullness_count++;
 	pthread_mutex_unlock(&philo->table->eat_mutex);
 	pthread_mutex_unlock(philo->left);
