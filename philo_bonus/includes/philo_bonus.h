@@ -33,12 +33,14 @@ typedef struct s_table
 	int			time_to_eat;
 	int			time_to_sleep;
 	int			must_eat_count;
+	int			someone_dead;
 	long long	start_time;
 	sem_t		*secure_forks;
 	sem_t		*forks;
 	sem_t		*print;
 	sem_t		*fullness;
 	sem_t		*death;
+	sem_t		*someone_dead_sem;
 	pthread_t	fullness_thread;
 	pthread_t	death_thread;
 	t_philo		*philo;

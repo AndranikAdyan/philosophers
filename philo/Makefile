@@ -11,7 +11,7 @@ SRC			= $(shell find $(SRC_DIR) -name "*.c")
 OBJ			= $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC))
 
 CC			= cc
-FLAGS		= -Wall -Wextra -Werror -g3 -fsanitize=thread
+FLAGS		= -Wall -Wextra -Werror
 
 GREEN		= \033[38;2;124;227;139m
 YELLOW		= \033[38;2;250;163;86m
