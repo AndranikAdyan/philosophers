@@ -43,7 +43,7 @@ static void	init_sems(t_table *table)
 	table->forks = sem_open("/forks", O_CREAT | O_EXCL,
 			0644, table->num_of_philos);
 	table->secure_forks = sem_open("/secure_forks", O_CREAT | O_EXCL,
-			0644, table->num_of_philos / 2);
+			0644, (table->num_of_philos / 2) + 1);
 	table->print = sem_open("/print", O_CREAT | O_EXCL, 0644, 1);
 	table->fullness = sem_open("/fullness", O_CREAT | O_EXCL, 0644, 0);
 	table->death = sem_open("/death", O_CREAT | O_EXCL, 0644, 0);
