@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 21:26:27 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/28 21:29:36 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/05/03 13:10:08 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static void	init_sems(t_table *table)
 	table->print = sem_open("/print", O_CREAT | O_EXCL, 0644, 1);
 	table->fullness = sem_open("/fullness", O_CREAT | O_EXCL, 0644, 0);
 	table->death = sem_open("/death", O_CREAT | O_EXCL, 0644, 0);
-	table->someone_dead_sem = sem_open("/someone_dead", O_CREAT | O_EXCL, 0644, 1);
 }
 
 t_table	*init_table(int argc, char **argv)
@@ -71,7 +70,6 @@ t_table	*init_table(int argc, char **argv)
 		table->must_eat_count = ft_atol(argv[5]);
 	else
 		table->must_eat_count = 0;
-	table->someone_dead = 0;
 	table->philo = malloc(sizeof(t_philo) * table->num_of_philos);
 	init_sems(table);
 	table->start_time = get_time_in_ms();
@@ -99,8 +97,6 @@ static void	free_sems(t_table *table)
 	sem_unlink("/secure_forks");
 	sem_close(table->print);
 	sem_unlink("/print");
-	sem_close(table->someone_dead_sem);
-	sem_unlink("/someone_dead");
 }
 
 void	free_table(t_table *table)

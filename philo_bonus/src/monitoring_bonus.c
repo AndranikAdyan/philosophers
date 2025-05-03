@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:41:05 by aadyan            #+#    #+#             */
-/*   Updated: 2025/05/01 21:58:37 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/05/03 14:05:05 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	*death(void *data)
 		kill(table->philo[index].pid, SIGKILL);
 		index++;
 	}
-	sem_post(table->someone_dead_sem);
 	sem_post(table->print);
-	return (NULL);
+	free(table);
+	exit(0);
 }
 
 void	*fullness_check(void *data)
@@ -41,10 +41,6 @@ void	*fullness_check(void *data)
 	{
 		sem_wait(table->fullness);
 		++counter;
-		sem_wait(table->someone_dead_sem);
-		if (table->someone_dead)
-			return (sem_post(table->someone_dead_sem), sem_post(table->death), NULL);
-		sem_post(table->someone_dead_sem);
 		if (counter == table->must_eat_count)
 		{
 			sem_wait(table->print);
@@ -70,9 +66,6 @@ void	*check_death(void *data)
 		{
 			sem_wait(philo->table->print);
 			sem_post(philo->last_eat_sem);
-			sem_wait(philo->table->someone_dead_sem);
-			philo->table->someone_dead = 1;
-			sem_post(philo->table->someone_dead_sem);
 			printf("[%lld] %d is died\n", get_time_in_ms()
 				- philo->table->start_time, philo->index);
 			sem_post(philo->table->death);

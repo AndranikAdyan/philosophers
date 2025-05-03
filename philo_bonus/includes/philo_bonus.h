@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 19:12:42 by aadyan            #+#    #+#             */
-/*   Updated: 2025/04/27 23:53:47 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/05/03 13:09:44 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,12 @@ typedef struct s_table
 	int			time_to_eat;
 	int			time_to_sleep;
 	int			must_eat_count;
-	int			someone_dead;
 	long long	start_time;
 	sem_t		*secure_forks;
 	sem_t		*forks;
 	sem_t		*print;
 	sem_t		*fullness;
 	sem_t		*death;
-	sem_t		*someone_dead_sem;
 	pthread_t	fullness_thread;
 	pthread_t	death_thread;
 	t_philo		*philo;
