@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 15:31:53 by aadyan            #+#    #+#             */
-/*   Updated: 2025/05/03 13:54:14 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/05/03 23:24:51 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,8 @@ void	philo_pick_fork(t_philo *philo)
 
 void	philo_eat(t_philo *philo)
 {
-	long long	start_time;
-
-	start_time = get_time_in_ms();
 	print_state(philo, "is eating");
-	while (get_time_in_ms() - start_time < philo->table->time_to_eat)
-		usleep(1000);
+	check_usleep(philo->table->time_to_eat);
 	sem_wait(philo->last_eat_sem);
 	philo->last_eat_time = get_time_in_ms();
 	sem_post(philo->last_eat_sem);
@@ -57,12 +53,8 @@ void	philo_eat(t_philo *philo)
 
 void	philo_sleep(t_philo *philo)
 {
-	long long	start_time;
-
-	start_time = get_time_in_ms();
 	print_state(philo, "is sleeping");
-	while (get_time_in_ms() - start_time < philo->table->time_to_sleep)
-		usleep(1000);
+	check_usleep(philo->table->time_to_sleep);
 }
 
 void	philo_think(t_philo *philo)

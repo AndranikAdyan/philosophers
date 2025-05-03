@@ -6,7 +6,7 @@
 /*   By: aadyan <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 19:41:05 by aadyan            #+#    #+#             */
-/*   Updated: 2025/05/03 14:05:05 by aadyan           ###   ########.fr       */
+/*   Updated: 2025/05/03 23:27:23 by aadyan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ void	*death(void *data)
 		index++;
 	}
 	sem_post(table->print);
-	free(table);
-	exit(0);
+	sem_wait(table->all_dead_sem);
+	table->all_dead = 1;
+	sem_post(table->all_dead_sem);
+	if (table->must_eat_count)
+		sem_post(table->fullness);
+	return (NULL);
 }
 
 void	*fullness_check(void *data)
@@ -40,8 +44,11 @@ void	*fullness_check(void *data)
 	while (1)
 	{
 		sem_wait(table->fullness);
-		++counter;
-		if (counter == table->must_eat_count)
+		sem_wait(table->all_dead_sem);
+		if (table->all_dead)
+			return (sem_post(table->all_dead_sem), NULL);
+		sem_post(table->all_dead_sem);
+		if (++counter == table->num_of_philos)
 		{
 			sem_wait(table->print);
 			sem_post(table->death);

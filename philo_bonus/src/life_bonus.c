@@ -17,6 +17,9 @@ void	life(t_philo *philo)
 	pthread_create(&philo->philo_death_thread, NULL, check_death, philo);
 	while (1)
 	{
+		sem_wait(philo->last_eat_sem);
+		philo->last_eat_time = get_time_in_ms();
+		sem_post(philo->last_eat_sem);
 		philo_pick_fork(philo);
 		philo_eat(philo);
 		philo_sleep(philo);
