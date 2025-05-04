@@ -102,6 +102,10 @@ static void	free_sems(t_table *table)
 	sem_unlink("/print");
 	sem_close(table->all_dead_sem);
 	sem_unlink("/all_dead");
+	sem_close(table->fullness);
+	sem_unlink("/fullness");
+	sem_close(table->death);
+	sem_unlink("/death");
 }
 
 void	free_table(t_table *table)
